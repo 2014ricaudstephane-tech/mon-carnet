@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#b5342b">
+<meta name="theme-color" content="#a3210f">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -14,11 +14,11 @@
 <title>Mon Carnet</title>
 <style>
   :root{
-    --plum:#b5342b; --plum-d:#8a1f18; --plum-l:#e0703c;
-    --bg:#fdf8f2; --card:#ffffff; --line:#f2e3d6;
-    --txt:#2b201a; --mut:#7d685b;
-    --g:#2f7d3e; --o:#c47f0a; --r:#b8243c;
-    --ok:#2f7d3e;
+    --red:#a3210f; --red-d:#701108; --red-l:#d9552f;
+    --accent:#f47a5b; --bg:#17100e; --card:#241815; --surface:#2e1e1a;
+    --line:#3b2621; --line2:#563a31;
+    --txt:#f5ebe3; --mut:#b59c8e; --dim:#8f7a6e;
+    --g:#4cb872; --o:#e0a03c; --r:#e5544a; --ok:#3fae6a;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
@@ -31,9 +31,9 @@
   /* ---------- HEADER ---------- */
   header{
     position:sticky;top:0;z-index:50;
-    background:linear-gradient(135deg,var(--plum) 0%,var(--plum-d) 100%);
+    background:linear-gradient(135deg,var(--red) 0%,var(--red-d) 100%);
     color:#fff; padding:calc(10px + env(safe-area-inset-top)) 14px 10px;
-    box-shadow:0 2px 10px rgba(90,20,55,.25);
+    box-shadow:0 2px 12px rgba(0,0,0,.45);
   }
   .hrow{display:flex;align-items:center;gap:10px}
   .brand{font-weight:700;font-size:1.05rem;letter-spacing:-.2px;flex:1;display:flex;align-items:center;gap:7px}
@@ -51,28 +51,28 @@
     position:fixed;bottom:0;left:0;right:0;z-index:60;
     display:flex;background:var(--card);border-top:1px solid var(--line);
     padding:6px 6px calc(6px + env(safe-area-inset-bottom));
-    box-shadow:0 -2px 14px rgba(90,20,55,.08);
+    box-shadow:0 -2px 14px rgba(0,0,0,.35);
   }
   nav.tabs button{
     flex:1;background:none;border:0;font-family:inherit;font-size:.68rem;color:var(--mut);
     padding:6px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:10px;
   }
   nav.tabs button .ic{font-size:1.22rem;line-height:1}
-  nav.tabs button.on{color:var(--plum);font-weight:700;background:#fbeee6}
+  nav.tabs button.on{color:var(--accent);font-weight:700;background:var(--surface)}
   main{padding:12px 12px 0;max-width:820px;margin:0 auto}
   .view{display:none}
   .view.on{display:block}
   /* ---------- CARTES ---------- */
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:12px}
-  .card h3{margin:0 0 8px;font-size:.95rem;color:var(--plum)}
+  .card h3{margin:0 0 8px;font-size:.95rem;color:var(--accent)}
   .muted{color:var(--mut);font-size:.84rem}
   /* ---------- PROGRESSION ---------- */
   .progwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:12px}
   .progtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
   .progtop b{font-size:.95rem}
   .progtop span{font-size:.85rem;color:var(--mut)}
-  .bar{height:10px;background:#f4e6db;border-radius:99px;overflow:hidden}
-  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--plum-l),var(--plum));border-radius:99px;transition:width .35s ease}
+  .bar{height:10px;background:var(--surface);border-radius:99px;overflow:hidden}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red-l),var(--red));border-radius:99px;transition:width .35s ease}
   .legend{display:flex;gap:12px;margin-top:9px;font-size:.74rem;color:var(--mut);flex-wrap:wrap}
   .legend span{display:flex;align-items:center;gap:5px}
   .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:0 0 auto}
@@ -84,123 +84,127 @@
     flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:99px;
     padding:7px 14px;font-size:.82rem;font-family:inherit;color:var(--txt);cursor:pointer;font-weight:500;
   }
-  .chip.on{background:var(--plum);border-color:var(--plum);color:#fff;font-weight:700}
+  .chip.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
   /* ---------- CATEGORIES ---------- */
   .cat{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
   .cathead{
     display:flex;align-items:center;gap:10px;padding:13px;cursor:pointer;background:none;border:0;
-    width:100%;font-family:inherit;text-align:left;font-size:.92rem;font-weight:700;color:var(--plum);
+    width:100%;font-family:inherit;text-align:left;font-size:.92rem;font-weight:700;color:var(--accent);
   }
-  .cathead .cnt{margin-left:auto;font-size:.76rem;font-weight:600;color:var(--mut);background:#fbeee6;padding:3px 8px;border-radius:99px}
+  .cathead .cnt{margin-left:auto;font-size:.76rem;font-weight:600;color:var(--mut);background:var(--surface);padding:3px 8px;border-radius:99px}
   .cathead .arw{color:var(--mut);font-size:.8rem;transition:transform .2s}
   .cat.open .arw{transform:rotate(90deg)}
   .catbody{display:none;border-top:1px solid var(--line);padding:6px 10px 10px}
   .cat.open .catbody{display:block}
   /* ---------- QUESTION ---------- */
-  .q{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid #f6f0f3;align-items:flex-start}
+  .q{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line);align-items:flex-start}
   .q:last-child{border-bottom:0}
   .chk{
-    flex:0 0 26px;height:26px;border-radius:8px;border:2px solid #dcc3b3;background:#fff;
+    flex:0 0 26px;height:26px;border-radius:8px;border:2px solid var(--line2);background:var(--surface);
     cursor:pointer;font-size:.85rem;color:transparent;display:flex;align-items:center;justify-content:center;
     margin-top:1px;padding:0;font-family:inherit;
   }
   .q.done .chk{background:var(--ok);border-color:var(--ok);color:#fff}
   .qbody{flex:1;min-width:0}
-  .qtext{display:block;font-size:.9rem;cursor:pointer}
-  .qnum{color:var(--mut);font-size:.74rem;font-weight:600;margin-right:4px}
-  .q.done .qtext{color:#6f6f6f}
-  .qacts{display:flex;gap:8px;margin-top:5px;align-items:center;flex-wrap:wrap}
-  .mini{
-    background:#fbeee6;border:0;border-radius:8px;padding:4px 9px;font-size:.74rem;
-    font-family:inherit;color:var(--plum);cursor:pointer;font-weight:600;
+  .qtext{display:block;font-size:.9rem;cursor:pointer;color:var(--txt)}
+  .qnum{color:var(--accent);font-size:.74rem;font-weight:700;margin-right:4px}
+  .q.done .qtext{color:var(--dim)}
+  .qsaying{
+    margin-top:5px;padding-left:9px;border-left:2px solid var(--red-l);
+    font-size:.78rem;line-height:1.35;font-style:italic;color:#d3a48f;
   }
-  .mini.star{background:transparent;font-size:1rem;padding:0 3px;color:#dcc3b3}
-  .mini.star.on{color:#e0a800}
+  .qacts{display:flex;gap:8px;margin-top:7px;align-items:center;flex-wrap:wrap}
+  .mini{
+    background:var(--surface);border:0;border-radius:8px;padding:4px 9px;font-size:.74rem;
+    font-family:inherit;color:var(--accent);cursor:pointer;font-weight:600;
+  }
+  .mini.star{background:transparent;font-size:1rem;padding:0 3px;color:var(--line2)}
+  .mini.star.on{color:#f0b429}
   .q textarea{
     width:100%;margin-top:7px;border:1px solid var(--line);border-radius:9px;padding:9px;
     font-family:inherit;font-size:.87rem;line-height:1.4;resize:vertical;min-height:52px;
-    background:#fdf8f2;color:var(--txt);
+    background:var(--surface);color:var(--txt);
   }
-  .q textarea:focus{outline:2px solid #f2c9b2;background:#fff}
+  .q textarea:focus{outline:2px solid var(--accent);background:#33221d}
   .nothide{display:none}
-  .warnq{background:#fdf0e9;border:1px solid #f0cdba;border-left:4px solid #b8243c;border-radius:9px;padding:11px 13px;font-size:.83rem;color:#7a2c1c;margin:8px 0 10px;line-height:1.42}
+  .warnq{background:#331a15;border:1px solid #5e2b22;border-left:4px solid var(--r);border-radius:9px;padding:11px 13px;font-size:.83rem;color:#f0b6a6;margin:8px 0 10px;line-height:1.42}
   /* ---------- RECAP ---------- */
   .rcat{margin-bottom:14px}
-  .rcat h4{margin:0 0 7px;font-size:.9rem;color:var(--plum);border-bottom:2px solid #f4e2d6;padding-bottom:5px}
-  .ritem{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px}
+  .rcat h4{margin:0 0 7px;font-size:.9rem;color:var(--accent);border-bottom:2px solid var(--line);padding-bottom:5px}
+  .ritem{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px}
   .rq{font-size:.82rem;color:var(--mut);margin-bottom:4px}
-  .ra{font-size:.92rem;white-space:pre-wrap}
-  .rempty{background:#fdf8f2;border-left:4px solid var(--plum);border-radius:9px;padding:11px 13px;font-size:.9rem;margin-bottom:12px}
-  .rempty b{display:block;color:var(--plum);font-size:.8rem;margin-bottom:3px}
+  .ra{font-size:.92rem;white-space:pre-wrap;color:var(--txt)}
+  .rempty{background:var(--surface);border-left:4px solid var(--red);border-radius:9px;padding:11px 13px;font-size:.9rem;margin-bottom:12px;color:var(--txt)}
+  .rempty b{display:block;color:var(--accent);font-size:.8rem;margin-bottom:3px}
   .freefield{margin-bottom:12px}
-  .freefield label{display:block;font-size:.82rem;font-weight:600;color:var(--plum);margin-bottom:5px}
+  .freefield label{display:block;font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:5px}
   .freefield textarea{
     width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;min-height:56px;
-    font-family:inherit;font-size:.9rem;resize:vertical;background:#fff;color:var(--txt);
+    font-family:inherit;font-size:.9rem;resize:vertical;background:var(--surface);color:var(--txt);
   }
-  .freefield textarea:focus{outline:2px solid #f2c9b2}
+  .freefield textarea:focus{outline:2px solid var(--accent)}
   /* ---------- BOUTONS ---------- */
   .btn{
-    display:block;width:100%;background:var(--plum);color:#fff;border:0;border-radius:12px;
+    display:block;width:100%;background:var(--red);color:#fff;border:0;border-radius:12px;
     padding:14px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:9px;
   }
-  .btn:active{background:var(--plum-d)}
-  .btn.ghost{background:#fff;color:var(--plum);border:1.5px solid var(--plum)}
-  .btn.danger{background:#fff;color:#b8243c;border:1.5px solid #ecc2b2}
+  .btn:active{background:var(--red-d)}
+  .btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--red)}
+  .btn.danger{background:transparent;color:#ff9a8a;border:1.5px solid #7a3b32}
   .btnrow{display:flex;gap:9px}
   .btnrow .btn{margin-bottom:9px}
   /* ---------- MODALE ---------- */
   .modal{
-    position:fixed;inset:0;z-index:100;background:rgba(45,18,8,.55);
+    position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.62);
     display:none;align-items:flex-end;justify-content:center;
   }
   .modal.on{display:flex}
   .sheet{
-    background:#fff;width:100%;max-width:520px;border-radius:20px 20px 0 0;
+    background:var(--card);width:100%;max-width:520px;border-radius:20px 20px 0 0;
     padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;
   }
-  .sheet h3{margin:0 0 14px;font-size:1.05rem;color:var(--plum)}
+  .sheet h3{margin:0 0 14px;font-size:1.05rem;color:var(--accent)}
   .sheet input[type=text]{
     width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px;
-    font-family:inherit;font-size:1rem;margin-bottom:12px;
+    font-family:inherit;font-size:1rem;margin-bottom:12px;background:var(--surface);color:var(--txt);
   }
-  .sheet input[type=text]:focus{outline:2px solid #f2c9b2}
+  .sheet input[type=text]:focus{outline:2px solid var(--accent)}
   .plist{margin-bottom:6px}
-  .pitem{display:flex;align-items:center;gap:9px;padding:11px 0;border-bottom:1px solid #f6ebe1}
-  .pitem .nm{flex:1;font-size:.93rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pitem{display:flex;align-items:center;gap:9px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .pitem .nm{flex:1;font-size:.93rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt)}
   .pitem .nm small{display:block;font-weight:400;font-size:.72rem;color:var(--mut)}
-  .pitem.act .nm{color:var(--plum)}
-  .pmini{background:#fbeee6;border:0;border-radius:8px;padding:6px 9px;font-size:.74rem;font-family:inherit;color:var(--plum);cursor:pointer;font-weight:600}
-  .pmini.del{color:#b8243c;background:#fdf0e9}
+  .pitem.act .nm{color:var(--accent)}
+  .pmini{background:var(--surface);border:0;border-radius:8px;padding:6px 9px;font-size:.74rem;font-family:inherit;color:var(--accent);cursor:pointer;font-weight:600}
+  .pmini.del{color:#ff9a8a;background:#33191a}
   /* ---------- VIDE ---------- */
   .empty{padding:44px 18px;text-align:center}
   .empty .big{font-size:3rem;margin-bottom:10px}
-  .empty h2{margin:0 0 8px;font-size:1.15rem;color:var(--plum)}
+  .empty h2{margin:0 0 8px;font-size:1.15rem;color:var(--accent)}
   .empty p{color:var(--mut);font-size:.9rem;margin:0 0 22px}
   /* ---------- TOAST ---------- */
   #toast{
     position:fixed;bottom:calc(96px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);
-    background:#2b201a;color:#fff;padding:11px 20px;border-radius:99px;font-size:.85rem;
+    background:#3a2620;color:var(--txt);padding:11px 20px;border-radius:99px;font-size:.85rem;border:1px solid var(--line2);
     opacity:0;transition:.25s;pointer-events:none;z-index:200;max-width:90vw;text-align:center;
   }
   #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-  .warnbar{background:#fff4e5;border:1px solid #f0d8b0;color:#7a5200;border-radius:11px;padding:11px 13px;font-size:.82rem;margin-bottom:12px}
-  /* ---------- IMPRESSION ---------- */
+  .warnbar{background:#2e2413;border:1px solid #5c421c;color:#e8c07a;border-radius:11px;padding:11px 13px;font-size:.82rem;margin-bottom:12px}
+  /* ---------- IMPRESSION (papier blanc) ---------- */
   #printArea{display:none}
   @media print{
     @page{size:A4;margin:12mm}
     body{padding:0;background:#fff;font-size:11pt}
     body>*{display:none!important}
     #printArea{display:block!important}
-    #printArea h1{font-size:18pt;color:#b5342b;margin:0 0 2mm}
-    #printArea .pmeta{font-size:9pt;color:#666;margin-bottom:5mm;border-bottom:2px solid #b5342b;padding-bottom:2mm}
+    #printArea h1{font-size:18pt;color:#a3210f;margin:0 0 2mm}
+    #printArea .pmeta{font-size:9pt;color:#666;margin-bottom:5mm;border-bottom:2px solid #a3210f;padding-bottom:2mm}
     #printArea .rcat{page-break-inside:avoid;margin-bottom:5mm}
-    #printArea .rcat h4{color:#b5342b;font-size:12pt;margin:0 0 2mm;border-bottom:1px solid #ddd;padding-bottom:1mm}
+    #printArea .rcat h4{color:#a3210f;font-size:12pt;margin:0 0 2mm;border-bottom:1px solid #ddd;padding-bottom:1mm}
     #printArea .ritem{border:1px solid #e5e5e5;border-radius:4px;padding:2.5mm 3mm;margin-bottom:2mm;page-break-inside:avoid}
     #printArea .rq{font-size:8.5pt;color:#777;margin-bottom:1mm}
     #printArea .ra{font-size:10.5pt;white-space:pre-wrap}
-    #printArea .rempty{border-left:3px solid #b5342b;background:#fdf7f1;padding:2.5mm 3mm;margin-bottom:3mm;page-break-inside:avoid}
-    #printArea .rempty b{display:block;font-size:8.5pt;color:#b5342b;margin-bottom:1mm}
+    #printArea .rempty{border-left:3px solid #a3210f;background:#fdf7f1;padding:2.5mm 3mm;margin-bottom:3mm;page-break-inside:avoid}
+    #printArea .rempty b{display:block;font-size:8.5pt;color:#a3210f;margin-bottom:1mm}
   }
 </style>
 </head>
@@ -263,11 +267,11 @@
   </div>
 
   <div class="view" id="view-save">
-    <div class="card" id="installCard" style="border-color:#cfe3d3;background:#f6fbf7">
-      <h3 style="color:#2f7d3e">📲 Installer l'application</h3>
-      <p class="muted" style="margin:0 0 12px;color:#3c5a43">Ajoute Mon Carnet à ton écran d'accueil : elle s'ouvre comme une vraie appli, en plein écran, et fonctionne même sans réseau.</p>
+    <div class="card" id="installCard" style="border-color:#2d4a35;background:#16241a">
+      <h3 style="color:#8fd6a5">📲 Installer l'application</h3>
+      <p class="muted" style="margin:0 0 12px;color:#93cf9f">Ajoute Mon Carnet à ton écran d'accueil : elle s'ouvre comme une vraie appli, en plein écran, et fonctionne même sans réseau.</p>
       <button class="btn" id="btnInstall" style="background:#2f7d3e">📲 Installer sur mon téléphone</button>
-      <p class="muted" id="installHelp" style="margin:8px 0 0;font-size:.78rem;color:#3c5a43"></p>
+      <p class="muted" id="installHelp" style="margin:8px 0 0;font-size:.78rem;color:#93cf9f"></p>
     </div>
     <div class="card">
       <h3>💾 Sauvegarde</h3>
@@ -283,9 +287,9 @@
       <p class="muted" style="margin:0 0 8px">• ⭐ marque les détails à ressortir plus tard : c'est ce qui fait le plus d'effet.</p>
       <p class="muted" style="margin:0">• Le pourcentage en haut ne sert pas à « finir » le carnet. C'est juste ta jauge pour voir où tu en es.</p>
     </div>
-    <div class="card" style="border-color:#f0d8b0;background:#fffdf8">
-      <h3 style="color:#7a5200">⚠️ À savoir</h3>
-      <p class="muted" style="margin:0;color:#7a5200">Garde ce fichier <b>.html</b> sur ton téléphone ou ton ordinateur et ouvre-le avec Chrome. Si un jour tes données disparaissent (vidage de cache, nouveau téléphone), il te suffira de réimporter ton fichier de sauvegarde.</p>
+    <div class="card" style="border-color:#5c421c;background:#2a2010">
+      <h3 style="color:#e8c07a">⚠️ À savoir</h3>
+      <p class="muted" style="margin:0;color:#e8c07a">Garde ce fichier <b>.html</b> sur ton téléphone ou ton ordinateur et ouvre-le avec Chrome. Si un jour tes données disparaissent (vidage de cache, nouveau téléphone), il te suffira de réimporter ton fichier de sauvegarde.</p>
     </div>
   </div>
 </main>
@@ -352,140 +356,140 @@ const CATS = [
 
 const Q = [
   // 1 · rire (toutes légères)
-  {c:"rire",k:"rire_01",t:`C'est quoi la dernière chose qui t'a fait vraiment rire ?`,lv:1},
-  {c:"rire",k:"rire_02",t:`Tu es plutôt du matin ou du soir ?`,lv:1},
-  {c:"rire",k:"rire_03",t:`Le week-end parfait pour toi, ça ressemble à quoi ?`,lv:1},
-  {c:"rire",k:"rire_04",t:`Tu tiens combien de temps sans ton téléphone ?`,lv:1},
-  {c:"rire",k:"rire_05",t:`C'est quoi ton petit plaisir que tu n'assumes pas trop ?`,lv:1},
-  {c:"rire",k:"rire_06",t:`Si tu pouvais vivre n'importe où, tu irais où ?`,lv:1},
-  {c:"rire",k:"rire_07",t:`Tu chantes sous la douche ? Et quoi ?`,lv:1},
-  {c:"rire",k:"rire_08",t:`C'est quoi la chose la plus bizarre que tu aies mangée ?`,lv:1},
-  {c:"rire",k:"rire_09",t:`Thé ou café ? Et comment tu le prends ?`,lv:1},
-  {c:"rire",k:"rire_10",t:`Quel film tu peux revoir 50 fois sans t'en lasser ?`,lv:1},
-  {c:"rire",k:"rire_11",t:`C'est quoi ton talent inutile ?`,lv:1},
-  {c:"rire",k:"rire_12",t:`Tu plies tes affaires ou tu laisses tout traîner ?`,lv:1},
-  {c:"rire",k:"rire_13",t:`Quelle chanson te met de bonne humeur à chaque fois ?`,lv:1},
-  {c:"rire",k:"rire_14",t:`C'est quoi la dernière série ou le dernier livre qui t'a marquée ?`,lv:1},
+  {c:"rire",k:"rire_01",t:`C'est quoi la dernière chose qui t'a fait vraiment rire ?`,lv:1,d:"Dis-moi, c'est quand la dernière fois que tu as ri aux éclats ?"},
+  {c:"rire",k:"rire_02",t:`Tu es plutôt du matin ou du soir ?`,lv:1,d:"Tu es plutôt du matin, fraîche et dispo, ou plutôt du soir ?"},
+  {c:"rire",k:"rire_03",t:`Le week-end parfait pour toi, ça ressemble à quoi ?`,lv:1,d:"Ton week-end idéal, à toi, il ressemble à quoi ?"},
+  {c:"rire",k:"rire_04",t:`Tu tiens combien de temps sans ton téléphone ?`,lv:1,d:"Tu tiendrais combien de temps sans ton téléphone, franchement ?"},
+  {c:"rire",k:"rire_05",t:`C'est quoi ton petit plaisir que tu n'assumes pas trop ?`,lv:1,d:"Avoue, c'est quoi ton petit plaisir un peu honteux ?"},
+  {c:"rire",k:"rire_06",t:`Si tu pouvais vivre n'importe où, tu irais où ?`,lv:1,d:"Si tu pouvais poser tes valises n'importe où, tu choisirais où ?"},
+  {c:"rire",k:"rire_07",t:`Tu chantes sous la douche ? Et quoi ?`,lv:1,d:"Sois honnête : tu chantes sous la douche ? Et quoi ?"},
+  {c:"rire",k:"rire_08",t:`C'est quoi la chose la plus bizarre que tu aies mangée ?`,lv:1,d:"C'est quoi le truc le plus bizarre que tu aies goûté ?"},
+  {c:"rire",k:"rire_09",t:`Thé ou café ? Et comment tu le prends ?`,lv:1,d:"Thé ou café ? Et surtout, comment tu le prends ?"},
+  {c:"rire",k:"rire_10",t:`Quel film tu peux revoir 50 fois sans t'en lasser ?`,lv:1,d:"Quel film tu pourrais revoir cinquante fois sans t'en lasser ?"},
+  {c:"rire",k:"rire_11",t:`C'est quoi ton talent inutile ?`,lv:1,d:"C'est quoi ton talent complètement inutile ?"},
+  {c:"rire",k:"rire_12",t:`Tu plies tes affaires ou tu laisses tout traîner ?`,lv:1,d:"Tu es du genre à tout ranger, ou à laisser traîner ?"},
+  {c:"rire",k:"rire_13",t:`Quelle chanson te met de bonne humeur à chaque fois ?`,lv:1,d:"Il y a une chanson qui te met de bonne humeur à tous les coups ?"},
+  {c:"rire",k:"rire_14",t:`C'est quoi la dernière série ou le dernier livre qui t'a marquée ?`,lv:1,d:"C'est quoi la dernière série ou le dernier livre qui t'a marquée ?"},
   // 2 · enfance
-  {c:"enfance",k:"enfance_01",t:`C'est quoi ton plus beau souvenir d'enfance ?`,lv:2},
-  {c:"enfance",k:"enfance_02",t:`Petite, tu voulais faire quoi comme métier ?`,lv:2},
-  {c:"enfance",k:"enfance_03",t:`Tu étais plutôt sage ou tu faisais des bêtises ?`,lv:2},
-  {c:"enfance",k:"enfance_04",t:`C'est quoi le jeu auquel tu jouais tout le temps ?`,lv:2},
-  {c:"enfance",k:"enfance_05",t:`Quel souvenir de vacances te fait encore sourire ?`,lv:2},
-  {c:"enfance",k:"enfance_06",t:`C'était comment, l'endroit où tu as grandi ?`,lv:2},
-  {c:"enfance",k:"enfance_07",t:`Qu'est-ce que tes parents t'ont appris et que tu gardes encore ?`,lv:2},
-  {c:"enfance",k:"enfance_08",t:`Il y a un endroit de ton enfance où tu aimerais retourner ?`,lv:2},
-  {c:"enfance",k:"enfance_09",t:`C'est quoi le plat de ton enfance qui te met en joie ?`,lv:2},
-  {c:"enfance",k:"enfance_10",t:`Tu avais un surnom, petite ?`,lv:2},
-  {c:"enfance",k:"enfance_11",t:`Quelle était ta plus grosse bêtise d'enfant ?`,lv:2},
-  {c:"enfance",k:"enfance_12",t:`C'est quoi la tradition familiale que tu voudrais transmettre ?`,lv:2},
-  {c:"enfance",k:"enfance_13",t:`Le premier truc que tu as acheté avec ton propre argent ?`,lv:2},
-  {c:"enfance",k:"enfance_14",t:`Quel prof t'a le plus marquée, et pourquoi ?`,lv:2},
+  {c:"enfance",k:"enfance_01",t:`C'est quoi ton plus beau souvenir d'enfance ?`,lv:2,d:"C'est quoi ton plus beau souvenir quand tu étais petite ?"},
+  {c:"enfance",k:"enfance_02",t:`Petite, tu voulais faire quoi comme métier ?`,lv:2,d:"Petite, tu rêvais de faire quoi plus tard ?"},
+  {c:"enfance",k:"enfance_03",t:`Tu étais plutôt sage ou tu faisais des bêtises ?`,lv:2,d:"Tu étais plutôt sage, ou tu en faisais de belles ?"},
+  {c:"enfance",k:"enfance_04",t:`C'est quoi le jeu auquel tu jouais tout le temps ?`,lv:2,d:"Il y a un jeu qui te suivait partout, petite ?"},
+  {c:"enfance",k:"enfance_05",t:`Quel souvenir de vacances te fait encore sourire ?`,lv:2,d:"Un souvenir de vacances qui te fait encore sourire ?"},
+  {c:"enfance",k:"enfance_06",t:`C'était comment, l'endroit où tu as grandi ?`,lv:2,d:"C'était comment, là où tu as grandi ?"},
+  {c:"enfance",k:"enfance_07",t:`Qu'est-ce que tes parents t'ont appris et que tu gardes encore ?`,lv:2,d:"Qu'est-ce que tes parents t'ont transmis et que tu gardes encore ?"},
+  {c:"enfance",k:"enfance_08",t:`Il y a un endroit de ton enfance où tu aimerais retourner ?`,lv:2,d:"Il y a un endroit de ton enfance où tu aimerais retourner ?"},
+  {c:"enfance",k:"enfance_09",t:`C'est quoi le plat de ton enfance qui te met en joie ?`,lv:2,d:"Le plat de ton enfance qui te replonge direct en joie, c'est quoi ?"},
+  {c:"enfance",k:"enfance_10",t:`Tu avais un surnom, petite ?`,lv:2,d:"Petite, on t'appelait comment ? Tu avais un surnom ?"},
+  {c:"enfance",k:"enfance_11",t:`Quelle était ta plus grosse bêtise d'enfant ?`,lv:2,d:"Ta plus grosse bêtise d'enfant, c'était quoi ?"},
+  {c:"enfance",k:"enfance_12",t:`C'est quoi la tradition familiale que tu voudrais transmettre ?`,lv:2,d:"Une tradition de ta famille que tu aimerais transmettre ?"},
+  {c:"enfance",k:"enfance_13",t:`Le premier truc que tu as acheté avec ton propre argent ?`,lv:2,d:"Le premier truc que tu t'es offert avec ton propre argent ?"},
+  {c:"enfance",k:"enfance_14",t:`Quel prof t'a le plus marquée, et pourquoi ?`,lv:2,d:"Un prof qui t'a marquée, en bien ou en mal ?"},
   // 3 · passion
-  {c:"passion",k:"passion_01",t:`Qu'est-ce qui te passionne et que les gens ne comprennent pas forcément ?`,lv:2},
-  {c:"passion",k:"passion_02",t:`C'est quoi ta façon à toi de décompresser après une sale journée ?`,lv:2},
-  {c:"passion",k:"passion_03",t:`Il y a une activité que tu aimerais essayer mais que tu n'as jamais osée ?`,lv:2},
-  {c:"passion",k:"passion_04",t:`Le voyage dont tu rêves, c'est où ?`,lv:2},
-  {c:"passion",k:"passion_05",t:`C'est quoi qui te fait te lever tôt avec plaisir ?`,lv:2},
-  {c:"passion",k:"passion_06",t:`Montagne ou mer ? Et pourquoi ?`,lv:2},
-  {c:"passion",k:"passion_07",t:`Qu'est-ce qui te remet de bonne humeur même quand tout va mal ?`,lv:2},
-  {c:"passion",k:"passion_08",t:`C'est quoi la dernière chose que tu as apprise toute seule ?`,lv:2},
-  {c:"passion",k:"passion_09",t:`Il y a un sport ou une activité que tu regrettes d'avoir arrêté ?`,lv:2},
-  {c:"passion",k:"passion_10",t:`C'est quoi ton endroit à toi, là où tu te sens vraiment bien ?`,lv:2},
-  {c:"passion",k:"passion_11",t:`Un bon resto ou un bon concert ?`,lv:2},
-  {c:"passion",k:"passion_12",t:`Quelle musique passe quand tu es contente ?`,lv:2},
-  {c:"passion",k:"passion_13",t:`Un livre, un film ou une série à me conseiller absolument ?`,lv:2},
-  {c:"passion",k:"passion_14",t:`Tu cuisines, tu bricoles, tu jardines ? C'est quoi ton truc à toi ?`,lv:2},
-  {c:"passion",k:"passion_15",t:`C'est quoi le compliment qu'on te fait souvent et qui te touche vraiment ?`,lv:2},
-  {c:"passion",k:"passion_16",t:`Quand tu as une grande nouvelle, tu appelles qui en premier ?`,lv:2},
+  {c:"passion",k:"passion_01",t:`Qu'est-ce qui te passionne et que les gens ne comprennent pas forcément ?`,lv:2,d:"C'est quoi qui te passionne, même si les autres ne pigent pas ?"},
+  {c:"passion",k:"passion_02",t:`C'est quoi ta façon à toi de décompresser après une sale journée ?`,lv:2,d:"Après une journée pourrie, tu fais quoi pour décompresser ?"},
+  {c:"passion",k:"passion_03",t:`Il y a une activité que tu aimerais essayer mais que tu n'as jamais osée ?`,lv:2,d:"Il y a un truc que tu aimerais essayer mais que tu n'as jamais osé ?"},
+  {c:"passion",k:"passion_04",t:`Le voyage dont tu rêves, c'est où ?`,lv:2,d:"Le voyage de tes rêves, il est où ?"},
+  {c:"passion",k:"passion_05",t:`C'est quoi qui te fait te lever tôt avec plaisir ?`,lv:2,d:"C'est quoi qui te fait te lever tôt avec le sourire ?"},
+  {c:"passion",k:"passion_06",t:`Montagne ou mer ? Et pourquoi ?`,lv:2,d:"Montagne ou mer ? Et dis-moi pourquoi."},
+  {c:"passion",k:"passion_07",t:`Qu'est-ce qui te remet de bonne humeur même quand tout va mal ?`,lv:2,d:"Même quand tout va mal, qu'est-ce qui te remonte le moral ?"},
+  {c:"passion",k:"passion_08",t:`C'est quoi la dernière chose que tu as apprise toute seule ?`,lv:2,d:"C'est quoi la dernière chose que tu as apprise toute seule ?"},
+  {c:"passion",k:"passion_09",t:`Il y a un sport ou une activité que tu regrettes d'avoir arrêté ?`,lv:2,d:"Un sport ou une activité que tu regrettes d'avoir lâché ?"},
+  {c:"passion",k:"passion_10",t:`C'est quoi ton endroit à toi, là où tu te sens vraiment bien ?`,lv:2,d:"C'est où, ton endroit à toi où tu te sens vraiment bien ?"},
+  {c:"passion",k:"passion_11",t:`Un bon resto ou un bon concert ?`,lv:2,d:"Plutôt un bon resto, ou un bon concert ?"},
+  {c:"passion",k:"passion_12",t:`Quelle musique passe quand tu es contente ?`,lv:2,d:"Quand tu es contente, tu mets quoi comme musique ?"},
+  {c:"passion",k:"passion_13",t:`Un livre, un film ou une série à me conseiller absolument ?`,lv:2,d:"Un livre, un film ou une série à me conseiller absolument ?"},
+  {c:"passion",k:"passion_14",t:`Tu cuisines, tu bricoles, tu jardines ? C'est quoi ton truc à toi ?`,lv:2,d:"Tu cuisines, tu bricoles, tu jardines ? C'est quoi ton truc ?"},
+  {c:"passion",k:"passion_15",t:`C'est quoi le compliment qu'on te fait souvent et qui te touche vraiment ?`,lv:2,d:"On te fait souvent un compliment qui te touche vraiment, c'est lequel ?"},
+  {c:"passion",k:"passion_16",t:`Quand tu as une grande nouvelle, tu appelles qui en premier ?`,lv:2,d:"Quand tu as une bonne nouvelle, tu appelles qui en premier ?"},
   // 4 · valeurs
-  {c:"valeurs",k:"valeurs_01",t:`Qu'est-ce que tu ne supportes pas chez les gens ?`,lv:3},
-  {c:"valeurs",k:"valeurs_02",t:`Et qu'est-ce que tu admires le plus chez quelqu'un ?`,lv:3},
-  {c:"valeurs",k:"valeurs_03",t:`C'est quoi la qualité que tu voudrais avoir et que tu n'as pas ?`,lv:3},
-  {c:"valeurs",k:"valeurs_04",t:`Tu pardonnes facilement, ou pas du tout ?`,lv:3},
-  {c:"valeurs",k:"valeurs_05",t:`C'est quoi, pour toi, être une bonne personne ?`,lv:3},
-  {c:"valeurs",k:"valeurs_06",t:`Tu es plutôt instinct ou réflexion ?`,lv:3},
-  {c:"valeurs",k:"valeurs_07",t:`Qu'est-ce qui te met vraiment en colère ?`,lv:3},
-  {c:"valeurs",k:"valeurs_08",t:`C'est quoi ton pire défaut, celui que tu reconnais ?`,lv:3},
-  {c:"valeurs",k:"valeurs_09",t:`Tu fais confiance vite, ou il te faut du temps ?`,lv:3},
-  {c:"valeurs",k:"valeurs_10",t:`Il y a une chose sur laquelle tu ne transigeras jamais ?`,lv:3},
-  {c:"valeurs",k:"valeurs_11",t:`Tu dis ce que tu penses, ou tu gardes pour toi ?`,lv:3},
-  {c:"valeurs",k:"valeurs_12",t:`Quand tu t'es trompée, tu le reconnais facilement ?`,lv:3},
-  {c:"valeurs",k:"valeurs_13",t:`C'est quoi la dernière fois où tu as changé d'avis sur quelqu'un ?`,lv:3},
-  {c:"valeurs",k:"valeurs_14",t:`Quel conseil on t'a donné et qui t'a vraiment servi ?`,lv:3},
+  {c:"valeurs",k:"valeurs_01",t:`Qu'est-ce que tu ne supportes pas chez les gens ?`,lv:3,d:"Chez les gens, qu'est-ce que tu ne supportes vraiment pas ?"},
+  {c:"valeurs",k:"valeurs_02",t:`Et qu'est-ce que tu admires le plus chez quelqu'un ?`,lv:3,d:"Et à l'inverse, qu'est-ce que tu admires le plus chez quelqu'un ?"},
+  {c:"valeurs",k:"valeurs_03",t:`C'est quoi la qualité que tu voudrais avoir et que tu n'as pas ?`,lv:3,d:"Une qualité que tu aimerais avoir et que tu n'as pas ?"},
+  {c:"valeurs",k:"valeurs_04",t:`Tu pardonnes facilement, ou pas du tout ?`,lv:3,d:"Tu pardonnes facilement, ou il te faut du temps ?"},
+  {c:"valeurs",k:"valeurs_05",t:`C'est quoi, pour toi, être une bonne personne ?`,lv:3,d:"Pour toi, c'est quoi être une bonne personne ?"},
+  {c:"valeurs",k:"valeurs_06",t:`Tu es plutôt instinct ou réflexion ?`,lv:3,d:"Tu marches plutôt à l'instinct, ou à la réflexion ?"},
+  {c:"valeurs",k:"valeurs_07",t:`Qu'est-ce qui te met vraiment en colère ?`,lv:3,d:"Qu'est-ce qui te met vraiment hors de toi ?"},
+  {c:"valeurs",k:"valeurs_08",t:`C'est quoi ton pire défaut, celui que tu reconnais ?`,lv:3,d:"Ton pire défaut, celui que tu reconnais toi-même ?"},
+  {c:"valeurs",k:"valeurs_09",t:`Tu fais confiance vite, ou il te faut du temps ?`,lv:3,d:"Tu fais confiance vite, ou il te faut du temps ?"},
+  {c:"valeurs",k:"valeurs_10",t:`Il y a une chose sur laquelle tu ne transigeras jamais ?`,lv:3,d:"Il y a un truc sur lequel tu ne céderas jamais ?"},
+  {c:"valeurs",k:"valeurs_11",t:`Tu dis ce que tu penses, ou tu gardes pour toi ?`,lv:3,d:"Tu dis ce que tu penses, ou tu gardes tout pour toi ?"},
+  {c:"valeurs",k:"valeurs_12",t:`Quand tu t'es trompée, tu le reconnais facilement ?`,lv:3,d:"Quand tu t'es trompée, tu le reconnais facilement ?"},
+  {c:"valeurs",k:"valeurs_13",t:`C'est quoi la dernière fois où tu as changé d'avis sur quelqu'un ?`,lv:3,d:"C'est quand la dernière fois que tu as changé d'avis sur quelqu'un ?"},
+  {c:"valeurs",k:"valeurs_14",t:`Quel conseil on t'a donné et qui t'a vraiment servi ?`,lv:3,d:"Un conseil qu'on t'a donné et qui t'a vraiment servi ?"},
   // 5 · reves
-  {c:"reves",k:"reves_01",t:`Si tu avais un mois entier de libre, sans obligation, tu ferais quoi ?`,lv:2},
-  {c:"reves",k:"reves_02",t:`C'est quoi la prochaine chose que tu aimerais accomplir ?`,lv:2},
-  {c:"reves",k:"reves_03",t:`Il y a un projet que tu repousses depuis longtemps ?`,lv:2},
-  {c:"reves",k:"reves_04",t:`Dans 5 ans, tu te vois où ?`,lv:2},
-  {c:"reves",k:"reves_05",t:`C'est quoi le rêve que tu ne dis jamais à voix haute ?`,lv:3},
-  {c:"reves",k:"reves_06",t:`Si l'argent n'était pas un problème, tu ferais quoi de tes journées ?`,lv:2},
-  {c:"reves",k:"reves_07",t:`Qu'est-ce que tu voudrais apprendre à faire avant tes 50 ans ?`,lv:2},
-  {c:"reves",k:"reves_08",t:`Tu voudrais vivre à la campagne, à la ville, ou ailleurs ?`,lv:2},
-  {c:"reves",k:"reves_09",t:`Il y a une cause qui te tient vraiment à cœur ?`,lv:3},
-  {c:"reves",k:"reves_10",t:`Tu fais quoi en premier si tu gagnes au loto ?`,lv:1},
-  {c:"reves",k:"reves_11",t:`Tu aimerais voyager seule au moins une fois dans ta vie ?`,lv:2},
-  {c:"reves",k:"reves_12",t:`Qu'est-ce qui te donnerait le sentiment d'avoir réussi ta vie ?`,lv:3},
+  {c:"reves",k:"reves_01",t:`Si tu avais un mois entier de libre, sans obligation, tu ferais quoi ?`,lv:2,d:"Imagine un mois entier libre, sans rien à faire : tu ferais quoi ?"},
+  {c:"reves",k:"reves_02",t:`C'est quoi la prochaine chose que tu aimerais accomplir ?`,lv:2,d:"C'est quoi la prochaine chose que tu aimerais réussir ?"},
+  {c:"reves",k:"reves_03",t:`Il y a un projet que tu repousses depuis longtemps ?`,lv:2,d:"Il y a un projet que tu repousses depuis un moment ?"},
+  {c:"reves",k:"reves_04",t:`Dans 5 ans, tu te vois où ?`,lv:2,d:"Dans cinq ans, tu te vois où ?"},
+  {c:"reves",k:"reves_05",t:`C'est quoi le rêve que tu ne dis jamais à voix haute ?`,lv:3,d:"Le rêve que tu n'oses jamais dire à voix haute, c'est quoi ?"},
+  {c:"reves",k:"reves_06",t:`Si l'argent n'était pas un problème, tu ferais quoi de tes journées ?`,lv:2,d:"Si l'argent n'était pas un souci, tu passerais tes journées à quoi ?"},
+  {c:"reves",k:"reves_07",t:`Qu'est-ce que tu voudrais apprendre à faire avant tes 50 ans ?`,lv:2,d:"Tu aimerais apprendre quoi avant tes cinquante ans ?"},
+  {c:"reves",k:"reves_08",t:`Tu voudrais vivre à la campagne, à la ville, ou ailleurs ?`,lv:2,d:"Tu te verrais vivre à la campagne, en ville, ou ailleurs ?"},
+  {c:"reves",k:"reves_09",t:`Il y a une cause qui te tient vraiment à cœur ?`,lv:3,d:"Il y a une cause qui te tient vraiment à cœur ?"},
+  {c:"reves",k:"reves_10",t:`Tu fais quoi en premier si tu gagnes au loto ?`,lv:1,d:"Si tu gagnes au loto, tu fais quoi en tout premier ?"},
+  {c:"reves",k:"reves_11",t:`Tu aimerais voyager seule au moins une fois dans ta vie ?`,lv:2,d:"Partir voyager seule au moins une fois, ça te tenterait ?"},
+  {c:"reves",k:"reves_12",t:`Qu'est-ce qui te donnerait le sentiment d'avoir réussi ta vie ?`,lv:3,d:"Qu'est-ce qui te ferait dire « j'ai réussi ma vie » ?"},
   // 6 · famille
-  {c:"famille",k:"famille_01",t:`C'est quoi le trait de caractère que tu tiens de ta mère ?`,lv:2},
-  {c:"famille",k:"famille_02",t:`Et de ton père ?`,lv:2},
-  {c:"famille",k:"famille_03",t:`Tu es la plus grande, la plus petite, au milieu ? Ça a joué sur ta façon d'être ?`,lv:2},
-  {c:"famille",k:"famille_04",t:`Il y a un frère ou une sœur avec qui tu es le plus proche ?`,lv:2},
-  {c:"famille",k:"famille_05",t:`Qu'est-ce que tu aimes le plus faire avec ta famille ?`,lv:2},
-  {c:"famille",k:"famille_06",t:`C'est quoi le souvenir le plus fort que tu as avec ta mère ?`,lv:2},
-  {c:"famille",k:"famille_07",t:`Ta famille se dit les choses, ou garde tout pour elle ?`,lv:2},
-  {c:"famille",k:"famille_08",t:`Tu es celle qui prend soin des autres, ou celle qu'on protège ?`,lv:2},
-  {c:"famille",k:"famille_09",t:`C'est quoi le repas de famille qui finit toujours en fou rire ?`,lv:1},
-  {c:"famille",k:"famille_10",t:`Qu'est-ce que tu as hérité de ta famille et que tu chéris ?`,lv:2},
+  {c:"famille",k:"famille_01",t:`C'est quoi le trait de caractère que tu tiens de ta mère ?`,lv:2,d:"Tu tiens quoi de ta mère, niveau caractère ?"},
+  {c:"famille",k:"famille_02",t:`Et de ton père ?`,lv:2,d:"Et de ton père ?"},
+  {c:"famille",k:"famille_03",t:`Tu es la plus grande, la plus petite, au milieu ? Ça a joué sur ta façon d'être ?`,lv:2,d:"Tu es la grande, la petite, au milieu ? Ça a joué sur toi ?"},
+  {c:"famille",k:"famille_04",t:`Il y a un frère ou une sœur avec qui tu es le plus proche ?`,lv:2,d:"Il y a un frère ou une sœur avec qui tu es le plus proche ?"},
+  {c:"famille",k:"famille_05",t:`Qu'est-ce que tu aimes le plus faire avec ta famille ?`,lv:2,d:"Qu'est-ce que tu préfères faire avec ta famille ?"},
+  {c:"famille",k:"famille_06",t:`C'est quoi le souvenir le plus fort que tu as avec ta mère ?`,lv:2,d:"Ton souvenir le plus fort avec ta mère, c'est quoi ?"},
+  {c:"famille",k:"famille_07",t:`Ta famille se dit les choses, ou garde tout pour elle ?`,lv:2,d:"Chez vous, on se dit les choses, ou on garde tout pour soi ?"},
+  {c:"famille",k:"famille_08",t:`Tu es celle qui prend soin des autres, ou celle qu'on protège ?`,lv:2,d:"Tu es plutôt celle qui s'occupe des autres, ou celle qu'on protège ?"},
+  {c:"famille",k:"famille_09",t:`C'est quoi le repas de famille qui finit toujours en fou rire ?`,lv:1,d:"Le repas de famille qui finit toujours en fou rire, c'est lequel ?"},
+  {c:"famille",k:"famille_10",t:`Qu'est-ce que tu as hérité de ta famille et que tu chéris ?`,lv:2,d:"Qu'est-ce que tu as hérité de ta famille et que tu chéris ?"},
   // 7 · enfants (elle en a deux)
-  {c:"enfants",k:"enfants_01",t:`Raconte-moi tes deux enfants — ils sont comment ?`,lv:2},
-  {c:"enfants",k:"enfants_02",t:`Ils ont quel âge ? Ça grandit vite, hein…`,lv:1},
-  {c:"enfants",k:"enfants_03",t:`Qu'est-ce que tu préfères faire avec eux ?`,lv:2},
-  {c:"enfants",k:"enfants_04",t:`Ils te ressemblent, ou ils tiennent de leur père ?`,lv:2},
-  {c:"enfants",k:"enfants_05",t:`C'est quoi le truc qu'ils font qui te fait rire à chaque fois ?`,lv:1},
-  {c:"enfants",k:"enfants_06",t:`De quoi tu es la plus fière chez eux ?`,lv:3},
-  {c:"enfants",k:"enfants_07",t:`Ils sont complices entre eux, ou plutôt à se chamailler ?`,lv:1},
-  {c:"enfants",k:"enfants_08",t:`Est-ce que tu arrives encore à te garder du temps pour toi ?`,lv:2},
-  {c:"enfants",k:"enfants_09",t:`C'est quoi la sortie qu'ils adorent, et toi aussi ?`,lv:2},
-  {c:"enfants",k:"enfants_10",t:`Qu'est-ce que le fait d'être maman t'a appris sur toi ?`,lv:3},
+  {c:"enfants",k:"enfants_01",t:`Raconte-moi tes deux enfants — ils sont comment ?`,lv:2,d:"Raconte-moi tes deux enfants, ils sont comment ?"},
+  {c:"enfants",k:"enfants_02",t:`Ils ont quel âge ? Ça grandit vite, hein…`,lv:1,d:"Ils ont quel âge ? Ça passe vite, hein…"},
+  {c:"enfants",k:"enfants_03",t:`Qu'est-ce que tu préfères faire avec eux ?`,lv:2,d:"Avec eux, qu'est-ce que tu aimes le plus faire ?"},
+  {c:"enfants",k:"enfants_04",t:`Ils te ressemblent, ou ils tiennent de leur père ?`,lv:2,d:"Ils te ressemblent, ou ils tiennent de leur père ?"},
+  {c:"enfants",k:"enfants_05",t:`C'est quoi le truc qu'ils font qui te fait rire à chaque fois ?`,lv:1,d:"Le truc qu'ils font et qui te fait rire à chaque fois ?"},
+  {c:"enfants",k:"enfants_06",t:`De quoi tu es la plus fière chez eux ?`,lv:3,d:"De quoi tu es la plus fière chez eux ?"},
+  {c:"enfants",k:"enfants_07",t:`Ils sont complices entre eux, ou plutôt à se chamailler ?`,lv:1,d:"Entre eux, c'est plutôt complicité, ou chamailleries ?"},
+  {c:"enfants",k:"enfants_08",t:`Est-ce que tu arrives encore à te garder du temps pour toi ?`,lv:2,d:"Tu arrives encore à te garder un peu de temps pour toi ?"},
+  {c:"enfants",k:"enfants_09",t:`C'est quoi la sortie qu'ils adorent, et toi aussi ?`,lv:2,d:"La sortie qu'ils adorent et que toi aussi tu aimes ?"},
+  {c:"enfants",k:"enfants_10",t:`Qu'est-ce que le fait d'être maman t'a appris sur toi ?`,lv:3,d:"Être maman, ça t'a appris quoi sur toi ?"},
   // 8 · manies
-  {c:"manies",k:"manies_01",t:`Le matin, il te faut combien de temps avant d'être vraiment réveillée ?`,lv:1},
-  {c:"manies",k:"manies_02",t:`C'est quoi le premier truc que tu fais en te levant ?`,lv:1},
-  {c:"manies",k:"manies_03",t:`Tu planifies tout, ou tu improvises ?`,lv:1},
-  {c:"manies",k:"manies_04",t:`C'est quoi ta petite routine qui te fait du bien ?`,lv:1},
-  {c:"manies",k:"manies_05",t:`Il y a une chose qui t'agace chez les autres et que tu fais aussi ?`,lv:2},
-  {c:"manies",k:"manies_06",t:`Bordélique organisée, ou vrai désordre ?`,lv:1},
-  {c:"manies",k:"manies_07",t:`C'est quoi ton dimanche parfait ?`,lv:1},
-  {c:"manies",k:"manies_08",t:`Sucré ou salé au petit-déjeuner ?`,lv:1},
-  {c:"manies",k:"manies_09",t:`C'est quoi le truc que tu remets toujours au lendemain ?`,lv:1},
-  {c:"manies",k:"manies_10",t:`Le soir, tu t'endors tout de suite ou tu rumines ?`,lv:1},
+  {c:"manies",k:"manies_01",t:`Le matin, il te faut combien de temps avant d'être vraiment réveillée ?`,lv:1,d:"Le matin, il te faut combien de temps pour être vraiment réveillée ?"},
+  {c:"manies",k:"manies_02",t:`C'est quoi le premier truc que tu fais en te levant ?`,lv:1,d:"Au saut du lit, c'est quoi le premier truc que tu fais ?"},
+  {c:"manies",k:"manies_03",t:`Tu planifies tout, ou tu improvises ?`,lv:1,d:"Tu planifies tout, ou tu improvises ?"},
+  {c:"manies",k:"manies_04",t:`C'est quoi ta petite routine qui te fait du bien ?`,lv:1,d:"Ta petite routine qui te fait du bien, c'est quoi ?"},
+  {c:"manies",k:"manies_05",t:`Il y a une chose qui t'agace chez les autres et que tu fais aussi ?`,lv:2,d:"Un truc qui t'agace chez les autres… et que tu fais aussi ?"},
+  {c:"manies",k:"manies_06",t:`Bordélique organisée, ou vrai désordre ?`,lv:1,d:"Bordélique organisée, ou vrai grand désordre ?"},
+  {c:"manies",k:"manies_07",t:`C'est quoi ton dimanche parfait ?`,lv:1,d:"Ton dimanche parfait, il ressemble à quoi ?"},
+  {c:"manies",k:"manies_08",t:`Sucré ou salé au petit-déjeuner ?`,lv:1,d:"Au petit-déj, plutôt sucré ou salé ?"},
+  {c:"manies",k:"manies_09",t:`C'est quoi le truc que tu remets toujours au lendemain ?`,lv:1,d:"Le truc que tu remets toujours au lendemain, c'est quoi ?"},
+  {c:"manies",k:"manies_10",t:`Le soir, tu t'endors tout de suite ou tu rumines ?`,lv:1,d:"Le soir, tu t'endors direct, ou tu rumines un peu ?"},
   // 8 · jeux
-  {c:"jeux",k:"jeux_01",t:`Tu préfères ne plus jamais manger de fromage, ou ne plus jamais regarder de film ?`,lv:1},
-  {c:"jeux",k:"jeux_02",t:`Tu préfères être toujours en retard, ou toujours 30 minutes en avance ?`,lv:1},
-  {c:"jeux",k:"jeux_03",t:`Ta journée d'aujourd'hui en un seul emoji, ce serait lequel ?`,lv:1},
-  {c:"jeux",k:"jeux_04",t:`C'est quoi la chose la plus spontanée que tu as faite cette année ?`,lv:1},
-  {c:"jeux",k:"jeux_05",t:`On te donne 1000 € à dépenser aujourd'hui, en une journée. Tu fais quoi ?`,lv:1},
-  {c:"jeux",k:"jeux_06",t:`Si on faisait un film de ta vie, il s'appellerait comment ?`,lv:1},
+  {c:"jeux",k:"jeux_01",t:`Tu préfères ne plus jamais manger de fromage, ou ne plus jamais regarder de film ?`,lv:1,d:"Tu préfères renoncer au fromage pour toujours, ou aux films ?"},
+  {c:"jeux",k:"jeux_02",t:`Tu préfères être toujours en retard, ou toujours 30 minutes en avance ?`,lv:1,d:"Plutôt toujours en retard, ou toujours trente minutes en avance ?"},
+  {c:"jeux",k:"jeux_03",t:`Ta journée d'aujourd'hui en un seul emoji, ce serait lequel ?`,lv:1,d:"Ta journée d'aujourd'hui, en un seul emoji, c'est lequel ?"},
+  {c:"jeux",k:"jeux_04",t:`C'est quoi la chose la plus spontanée que tu as faite cette année ?`,lv:1,d:"C'est quoi le truc le plus spontané que tu aies fait cette année ?"},
+  {c:"jeux",k:"jeux_05",t:`On te donne 1000 € à dépenser aujourd'hui, en une journée. Tu fais quoi ?`,lv:1,d:"On te file mille euros à claquer aujourd'hui : tu fais quoi ?"},
+  {c:"jeux",k:"jeux_06",t:`Si on faisait un film de ta vie, il s'appellerait comment ?`,lv:1,d:"Si on faisait un film de ta vie, on l'appellerait comment ?"},
   // 9 · murs
-  {c:"murs",k:"murs_01",t:`C'est quoi la chose la plus difficile que tu aies traversée, et qu'est-ce que ça t'a appris ?`,lv:3},
-  {c:"murs",k:"murs_02",t:`De quoi tu es la plus fière ?`,lv:3},
-  {c:"murs",k:"murs_03",t:`Qu'est-ce que tu aurais aimé qu'on te dise quand tu étais plus jeune ?`,lv:3},
-  {c:"murs",k:"murs_04",t:`C'est quoi, pour toi, une belle relation ?`,lv:3},
+  {c:"murs",k:"murs_01",t:`C'est quoi la chose la plus difficile que tu aies traversée, et qu'est-ce que ça t'a appris ?`,lv:3,d:"C'est quoi le plus dur que tu aies traversé, et qu'as-tu appris ?"},
+  {c:"murs",k:"murs_02",t:`De quoi tu es la plus fière ?`,lv:3,d:"De quoi tu es la plus fière dans ta vie ?"},
+  {c:"murs",k:"murs_03",t:`Qu'est-ce que tu aurais aimé qu'on te dise quand tu étais plus jeune ?`,lv:3,d:"Qu'est-ce que tu aurais aimé qu'on te dise quand tu étais plus jeune ?"},
+  {c:"murs",k:"murs_04",t:`C'est quoi, pour toi, une belle relation ?`,lv:3,d:"Pour toi, c'est quoi une belle relation ?"},
   // 11 · intimité et sexualité (niveau profond uniquement)
-  {c:"intimite",k:"intimite_01",t:`Tu es plutôt quelqu'un qui parle facilement de ça, ou très discrète ?`,lv:3},
-  {c:"intimite",k:"intimite_02",t:`C'est quoi, pour toi, le plus important dans l'intimité ?`,lv:3},
-  {c:"intimite",k:"intimite_03",t:`Le romantisme, ça compte pour toi ?`,lv:2},
-  {c:"intimite",k:"intimite_04",t:`Tu es tactile, ou tu as besoin de ton espace ?`,lv:2},
-  {c:"intimite",k:"intimite_05",t:`Qu'est-ce qui te fait te sentir vraiment désirée ?`,lv:3},
-  {c:"intimite",k:"intimite_06",t:`Les mots ou les gestes, qu'est-ce qui compte le plus pour toi ?`,lv:2},
-  {c:"intimite",k:"intimite_07",t:`Une soirée parfaite en amoureux, pour toi, ça ressemble à quoi ?`,lv:2},
-  {c:"intimite",k:"intimite_08",t:`Tu prends ton temps, ou tu es plutôt spontanée ?`,lv:3},
-  {c:"intimite",k:"intimite_09",t:`C'est quoi le plus beau compliment qu'on puisse te faire ?`,lv:2},
-  {c:"intimite",k:"intimite_10",t:`Qu'est-ce que tu attends de quelqu'un, dans l'intimité ?`,lv:3},
-  {c:"intimite",k:"intimite_11",t:`Et qu'est-ce que tu ne voudrais jamais qu'on te fasse ?`,lv:3},
-  {c:"intimite",k:"intimite_12",t:`La pudeur, pour toi, c'est quoi ?`,lv:3},
-  {c:"intimite",k:"intimite_13",t:`La tendresse au quotidien, ça compte pour toi ?`,lv:2},
-  {c:"intimite",k:"intimite_14",t:`Qu'est-ce qui te met mal à l'aise, et qu'il faut absolument éviter ?`,lv:3}
+  {c:"intimite",k:"intimite_01",t:`Tu es plutôt quelqu'un qui parle facilement de ça, ou très discrète ?`,lv:3,d:"C'est un sujet dont tu parles facilement, ou tu restes plutôt discrète ?"},
+  {c:"intimite",k:"intimite_02",t:`C'est quoi, pour toi, le plus important dans l'intimité ?`,lv:3,d:"Pour toi, le plus important dans l'intimité, c'est quoi ?"},
+  {c:"intimite",k:"intimite_03",t:`Le romantisme, ça compte pour toi ?`,lv:2,d:"Le romantisme, ça compte pour toi ?"},
+  {c:"intimite",k:"intimite_04",t:`Tu es tactile, ou tu as besoin de ton espace ?`,lv:2,d:"Tu es tactile, ou tu as besoin de ton espace ?"},
+  {c:"intimite",k:"intimite_05",t:`Qu'est-ce qui te fait te sentir vraiment désirée ?`,lv:3,d:"Qu'est-ce qui te fait te sentir vraiment désirée ?"},
+  {c:"intimite",k:"intimite_06",t:`Les mots ou les gestes, qu'est-ce qui compte le plus pour toi ?`,lv:2,d:"Les mots ou les gestes, qu'est-ce qui compte le plus pour toi ?"},
+  {c:"intimite",k:"intimite_07",t:`Une soirée parfaite en amoureux, pour toi, ça ressemble à quoi ?`,lv:2,d:"Une soirée parfaite en amoureux, ça ressemble à quoi pour toi ?"},
+  {c:"intimite",k:"intimite_08",t:`Tu prends ton temps, ou tu es plutôt spontanée ?`,lv:3,d:"Tu prends ton temps, ou tu es plutôt spontanée ?"},
+  {c:"intimite",k:"intimite_09",t:`C'est quoi le plus beau compliment qu'on puisse te faire ?`,lv:2,d:"C'est quoi le plus beau compliment qu'on puisse te faire ?"},
+  {c:"intimite",k:"intimite_10",t:`Qu'est-ce que tu attends de quelqu'un, dans l'intimité ?`,lv:3,d:"Dans l'intimité, qu'est-ce que tu attends de quelqu'un ?"},
+  {c:"intimite",k:"intimite_11",t:`Et qu'est-ce que tu ne voudrais jamais qu'on te fasse ?`,lv:3,d:"Et à l'inverse, qu'est-ce que tu ne voudrais jamais qu'on te fasse ?"},
+  {c:"intimite",k:"intimite_12",t:`La pudeur, pour toi, c'est quoi ?`,lv:3,d:"La pudeur, pour toi, c'est quoi ?"},
+  {c:"intimite",k:"intimite_13",t:`La tendresse au quotidien, ça compte pour toi ?`,lv:2,d:"La tendresse au quotidien, ça compte pour toi ?"},
+  {c:"intimite",k:"intimite_14",t:`Qu'est-ce qui te met mal à l'aise, et qu'il faut absolument éviter ?`,lv:3,d:"Qu'est-ce qui te met mal à l'aise, et qu'il faut éviter ?"}
 ];
 Q.forEach((q,i)=>{ q.id = q.k; q.n = i+1; });   // id STABLE (jamais lie a la position)
 
@@ -664,6 +668,7 @@ function renderQuestions(){
       html +=   '<button class="chk" data-act="toggleq" data-q="'+q.id+'">✓</button>';
       html +=   '<div class="qbody">';
       html +=     '<label class="qtext" data-act="toggleq" data-q="'+q.id+'"><span class="dot lv'+q.lv+'"></span> <span class="qnum">'+q.n+'.</span>'+esc(q.t)+'</label>';
+      if(q.d) html += '<div class="qsaying">— Pour le dire&nbsp;: «&nbsp;'+esc(q.d)+'&nbsp;»</div>';
       html +=     '<div class="qacts">';
       html +=       '<button class="mini star'+(a.star?" on":"")+'" data-act="star" data-q="'+q.id+'" title="À ressortir plus tard">'+(a.star?"★":"☆")+'</button>';
       html +=       '<button class="mini" data-act="notebtn" data-q="'+q.id+'">'+(a.note.trim()?"✏️ Modifier ma note":"＋ Ajouter une note")+'</button>';
@@ -748,7 +753,7 @@ function renderPeopleList(){
     html += '<div class="pitem'+(p.id===state.active?" act":"")+'">';
     html +=   '<div class="nm">'+esc(p.name)+'<small>'+done+'/'+Q.length+' questions</small></div>';
     if(p.id!==state.active) html += '<button class="pmini" data-act="switch" data-id="'+p.id+'">Ouvrir</button>';
-    else html += '<span class="pmini" style="background:#eef7ef;color:#2f7d3e">Active</span>';
+    else html += '<span class="pmini" style="background:#1c3324;color:#8fd6a5">Active</span>';
     html += '</div>';
   });
   if(arch.length){

@@ -3,7 +3,7 @@
    Strategie : on met en cache le minimum vital a l'installation,
    puis on sert le cache d'abord (et on rafraichit en arriere-plan). */
 
-const CACHE = "mon-carnet-v4";
+const CACHE = "mon-carnet-v5";
 const FILES = [
   "./",
   "./index.html",
