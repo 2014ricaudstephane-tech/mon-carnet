@@ -3,13 +3,14 @@
    Strategie : on met en cache le minimum vital a l'installation,
    puis on sert le cache d'abord (et on rafraichit en arriere-plan). */
 
-const CACHE = "mon-carnet-v2";
+const CACHE = "mon-carnet-v3";
 const FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./icon-maskable-512.png"
 ];
 
 self.addEventListener("install", function (e) {
